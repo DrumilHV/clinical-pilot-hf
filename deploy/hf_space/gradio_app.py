@@ -26,6 +26,9 @@ if script_dir in sys.path:
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# Set working directory to repo root so relative paths (e.g. raw_data/) resolve correctly
+os.chdir(ROOT)
+
 import gradio as gr  # noqa: E402
 
 from app.ui.doctor_tab import build_tab as build_doctor_tab  # noqa: E402
@@ -36,7 +39,7 @@ BACKEND_URL = os.getenv("HF_SPACE_BACKEND_URL", "http://localhost:8000")
 
 
 def build_app() -> gr.Blocks:
-    with gr.Blocks(title="CliniqAI") as demo:
+    with gr.Blocks(title="CliniqAI") as app:
         gr.Markdown(
             f"# 🪶 CliniqAI\nClinical operations AI for Indian hospitals. "
             f"Backend: `{BACKEND_URL}`"
@@ -48,11 +51,14 @@ def build_app() -> gr.Blocks:
                 build_patient_tab()
             with gr.Tab("Nurse & Admin"):
                 build_nurse_admin_tab()
-    return demo
+    return app
 
+
+# Expose at module level so Gradio hot-reload can find it
+demo = build_app()
 
 if __name__ == "__main__":
-    build_app().launch(
+    demo.launch(
         server_name="0.0.0.0",
         server_port=int(os.getenv("GRADIO_SERVER_PORT", "7860")),
         theme=gr.themes.Soft(),
