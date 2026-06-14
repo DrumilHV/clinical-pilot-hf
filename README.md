@@ -1,3 +1,15 @@
+---
+title: CliniqAI
+emoji: 🪶
+colorFrom: blue
+colorTo: indigo
+sdk: gradio
+sdk_version: "6.15.1"
+app_file: deploy/hf_space/gradio_app.py
+python_version: "3.12"
+pinned: false
+---
+
 # CliniqAI — Clinical Operations AI for Indian Hospitals
 
 > Giving doctors and nurses back the hours they lose to paperwork, so they can spend that time on patients.
