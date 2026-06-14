@@ -269,8 +269,8 @@ def build_tab() -> gr.Blocks:
 
                 with gr.Row():
                     csv_input = gr.Textbox(
-                        placeholder="raw_data/duty_roster/roster.csv",
-                        label="Staff CSV path (leave blank for demo)",
+                        value="raw_data/duty_roster/roster.csv",
+                        label="Staff CSV path",
                         scale=4,
                     )
                     window_slider = gr.Slider(
